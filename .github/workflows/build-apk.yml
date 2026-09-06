@@ -16,15 +16,17 @@ jobs:
         with:
           node-version: 24
 
-      - name: Install dependencies
-        run: npm install
-
       - name: Prepare web files
         run: |
           mkdir -p www
           cp index.html www/
           cp style.css www/ 2>/dev/null || true
           cp script.js www/ 2>/dev/null || true
+          echo "Contents of www:"
+          ls -la www
+
+      - name: Install dependencies
+        run: npm install
 
       - name: Add Android
         run: npx cap add android
