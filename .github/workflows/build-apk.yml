@@ -25,20 +25,18 @@ jobs:
           cp index.html www/index.html
           if [ -f style.css ]; then cp style.css www/style.css; fi
           if [ -f script.js ]; then cp script.js www/script.js; fi
-          if [ -d assets ]; then cp -r assets www/; fi
+
+      - name: Add Android platform
+        run: npx cap add android
 
       - name: Sync Capacitor
         run: npx cap sync android
 
-      - name: Setup Java
-        uses: actions/setup-java@v5
-        with:
-          distribution: temurin
-          java-version: 17
-
-      - name: Build Android APK
-        working-directory: android
-        run: ./gradlew assembleDebug
+      - name: Build APK
+        run: |
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
