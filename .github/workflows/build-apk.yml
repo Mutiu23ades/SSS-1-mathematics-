@@ -19,13 +19,16 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Verify web files
+      - name: Check web assets
         run: |
           echo "Checking www folder..."
           ls -la
           echo "Checking www contents..."
           ls -la www
           test -f www/index.html
+          test -f www/style.css
+          test -f www/script.js
+          echo "All web assets found successfully."
 
       - name: Sync Capacitor
         run: npx cap sync android
@@ -37,5 +40,5 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: sss-1-mathematics-apk
+          name: SSS-1-Mathematics-APK
           path: android/app/build/outputs/apk/debug/app-debug.apk
