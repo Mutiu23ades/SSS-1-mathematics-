@@ -26,34 +26,11 @@ jobs:
         run: npx cap sync android
 
       - name: Build APK
-        working-directory: android
         run: ./gradlew assembleDebug
+        working-directory: android
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: sss1-mathematics-apk
           path: android/app/build/outputs/apk/debug/app-debug.apk
-
-Important
-
-Do not create another "www" folder.
-
-Your files are already correctly arranged:
-
-www/
-  index.html
-  style.css
-  script.js
-
-And your "capacitor.config.json" now points to:
-
-"webDir": "www"
-
-After replacing the workflow, Commit changes.
-
-Then go to:
-
-Actions → Build SSS 1 Mathematics APK → Run workflow
-
-Don't run anything else yet. Tell me what result you get.
