@@ -16,27 +16,39 @@ jobs:
         with:
           node-version: 24
 
+      - name: Install dependencies
+        run: npm install
+
       - name: Prepare web files
         run: |
           mkdir -p www
           cp index.html www/
-          cp style.css www/ 2>/dev/null || true
-          cp script.js www/ 2>/dev/null || true
-          echo "Contents of www:"
-          ls -la www
+          cp style.css www/
+          cp script.js www/
 
-      - name: Install dependencies
-        run: npm install
+      - name: Install Capacitor Android
+        run: |
+          npm install @capacitor/core @capacitor/cli @capacitor/android
 
-      - name: Add Android
-        run: npx cap add android
+      - name: Add Android platform
+        run: |
+          npx cap add android
 
       - name: Sync Capacitor
-        run: npx cap sync android
+        run: |
+          npx cap sync android
+
+      - name: Setup Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 21
 
       - name: Build APK
-        working-directory: android
-        run: ./gradlew assembleDebug
+        run: |
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
