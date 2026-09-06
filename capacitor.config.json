@@ -1,6 +1,6 @@
 {
   "appId": "com.sss1mathematics.app",
   "appName": "SSS 1 Mathematics",
-  "webDir": "www",
+  "webDir": ".",
   "bundledWebRuntime": false
 }
