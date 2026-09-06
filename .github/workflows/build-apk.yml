@@ -19,16 +19,8 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Check web assets
-        run: |
-          echo "Checking www folder..."
-          ls -la
-          echo "Checking www contents..."
-          ls -la www
-          test -f www/index.html
-          test -f www/style.css
-          test -f www/script.js
-          echo "All web assets found successfully."
+      - name: Add Android platform
+        run: npx cap add android
 
       - name: Sync Capacitor
         run: npx cap sync android
@@ -40,5 +32,28 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: SSS-1-Mathematics-APK
+          name: sss1-mathematics-apk
           path: android/app/build/outputs/apk/debug/app-debug.apk
+
+Important
+
+Do not create another "www" folder.
+
+Your files are already correctly arranged:
+
+www/
+  index.html
+  style.css
+  script.js
+
+And your "capacitor.config.json" now points to:
+
+"webDir": "www"
+
+After replacing the workflow, Commit changes.
+
+Then go to:
+
+Actions → Build SSS 1 Mathematics APK → Run workflow
+
+Don't run anything else yet. Tell me what result you get.
